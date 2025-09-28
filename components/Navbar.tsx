@@ -3,10 +3,12 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Button } from './ui/button';
+import { useStore } from '@/store/useStore';
 
 const Navbar = () => {
-  const [active, setActive] = useState('Home');
-  const navItems = ['Home', 'About', 'Contact'];
+  const active = useStore((state) => state.activeNav);
+  const setActive = useStore((state) => state.setNavItem);
+  const navItems = ['Home', 'About', 'Cars', 'Contact'];
 
   const handleItemClick = (item: string) => {
     setActive(item);
@@ -39,7 +41,7 @@ const Navbar = () => {
             )}
             {/* Text Content */}
             <span className={`relative z-10 text-lg ${active === item ? 'text-black font-bold' : 'text-white font-medium'}`}>
-              {item}
+              <a href={`/${item != 'Home' ? item.toLowerCase() : ''}`}>{item}</a>
             </span>
           </div>
         ))}
